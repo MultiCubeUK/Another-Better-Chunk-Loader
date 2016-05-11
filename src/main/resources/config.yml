@@ -35,7 +35,7 @@ database:
   database: ACL_Mainline2
   table-prefix: ''
   username: ACL
-  password: BqDqcpZXd5Pdp5NE
+  password: *********
 
 # Limit which dimensions chunk loaders are available
 limit-dimensions:
