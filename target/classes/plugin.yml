@@ -1,0 +1,42 @@
+name: AnotherChunkLoader
+main: net.anothereon.bukkit.anotherchunkloader.AnotherChunkLoader
+version: 1.2
+author: Christian Nordbakk
+website: http://www.anothereon.net
+description: Custom plugin for BCLForge by KaiNoMood
+# softdepend: [UUIDProvider]
+
+commands:
+   anotherchunkloader:
+      aliases: [acl]
+      description: Open GUI or list commands
+      usage: /<command> [?]
+   anotherchunkloaderadmin:
+      aliases: [acla]
+      description: Administrative commands
+      usage: /<command> ?
+permissions:
+   anotherchunkloader.admin.delete:
+      default: op
+   anotherchunkloader.admin.list:
+      default: op
+   anotherchunkloader.admin.add:
+      default: op
+   anotherchunkloader.admin.balance:
+      default: op
+   anotherchunkloader.admin.*:
+      default: op
+      children:
+         anotherchunkloader.admin.add: true
+         anotherchunkloader.admin.list: true
+         anotherchunkloader.admin.remove: true
+         anotherchunkloader.admin.balance: true
+   anotherchunkloader.place:
+      default: true
+   anotherchunkloader.list:
+      default: true
+   anotherchunkloader.delete:
+      default: true
+   anotherchunkloader.balance:
+      default: true
+

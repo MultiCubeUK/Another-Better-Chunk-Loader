@@ -1,0 +1,42 @@
+name: MulticubeChunkLoader
+main: net.anothereon.bukkit.multicubechunkloaderer.MulticubeChunkLoader
+version: 1.0
+author: Thomas Sweeck
+website: http://www.multicube.co
+description: Custom plugin for BCLForge by Sweeck
+# softdepend: [UUIDProvider]
+
+commands:
+   anotherchunkloader:
+      aliases: [acl]
+      description: Open GUI or list commands
+      usage: /<command> [?]
+   anotherchunkloaderadmin:
+      aliases: [acla]
+      description: Administrative commands
+      usage: /<command> ?
+permissions:
+   anotherchunkloader.admin.delete:
+      default: op
+   anotherchunkloader.admin.list:
+      default: op
+   anotherchunkloader.admin.add:
+      default: op
+   anotherchunkloader.admin.balance:
+      default: op
+   anotherchunkloader.admin.*:
+      default: op
+      children:
+         anotherchunkloader.admin.add: true
+         anotherchunkloader.admin.list: true
+         anotherchunkloader.admin.remove: true
+         anotherchunkloader.admin.balance: true
+   anotherchunkloader.place:
+      default: true
+   anotherchunkloader.list:
+      default: true
+   anotherchunkloader.delete:
+      default: true
+   anotherchunkloader.balance:
+      default: true
+
