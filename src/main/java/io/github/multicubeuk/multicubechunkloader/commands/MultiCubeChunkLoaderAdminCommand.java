@@ -16,29 +16,33 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
+public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor 
+{
     private MultiCubeChunkLoader plugin;
     private List<Command> commands;
 
 
-    public MultiCubeChunkLoaderAdminCommand(MultiCubeChunkLoader plugin) {
+    public MultiCubeChunkLoaderAdminCommand(MultiCubeChunkLoader plugin) 
+    {
         this.plugin = plugin;
 
         commands = new ArrayList<>();
         commands.add(new Command("add", "/mcla add <owner> <personal|world> <# chunks> - Adds available chunks of the given type to players balance. This can be a negative number.", "multicubechunkloader.admin.add"));
-        commands.add(new Command("balance", "/mcla list <player> - Lists the balance of the specified player.", "multicubechunkloader.admin.balance"));
+        commands.add(new Command("balance", "/mcla balance <player> - Lists the balance of the specified player.", "multicubechunkloader.admin.balance"));
         commands.add(new Command("list", "/mcla list [owner:<owner>] [world:<world>] [type:<personal|world|creative>] [page #] - Lists all chunk loaders.", "multicubechunkloader.admin.list"));
         commands.add(new Command("delete", "/mcla delete <id:id|owner:owner|world:world|all> - Deletes specified or all chunk loaders", "multicubechunkloader.admin.delete"));
         commands.add(new Command("reload", "/mcla reload - Reloads the plugin, including configuration and loaded chunks", "multicubechunkloader.admin.reload"));
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) 
+    {
 
         /**
          * HELP
          */
-        if (args.length == 0 || args[0].equalsIgnoreCase("?")) {
+        if (args.length == 0 || args[0].equalsIgnoreCase("?")) 
+        {
             commands
                     .stream()
                     .filter(c -> sender.hasPermission(c.permissions) || sender.isOp())
