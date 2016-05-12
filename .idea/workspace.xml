@@ -4,7 +4,10 @@
     <list default="true" id="9abbbd55-9836-43be-b121-b1608764d174" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand$Command.class" afterPath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand$Command.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.class" afterPath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/database/MySqlDataProvider.class" afterPath="$PROJECT_DIR$/target/classes/io/github/multicubeuk/multicubechunkloader/database/MySqlDataProvider.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/multicubechunkloader-1.0.jar" afterPath="$PROJECT_DIR$/target/multicubechunkloader-1.0.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java" />
     </list>
     <ignored path="Another-Better-Chunk-Loader.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,8 +66,8 @@
       <file leaf-file-name="MultiCubeChunkLoaderAdminCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="485" column="46" selection-start-line="485" selection-start-column="46" selection-end-line="485" selection-end-column="46" />
+            <state relative-caret-position="-7735">
+              <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,7 +78,7 @@
       <file leaf-file-name="ChunkLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/ChunkLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3607">
+            <state relative-caret-position="-3593">
               <caret line="39" column="108" selection-start-line="39" selection-start-column="106" selection-end-line="39" selection-end-column="108" />
               <folding />
             </state>
@@ -115,11 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultiCubeChunkLoaderCommand.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MultiCubeChunkLoaderCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+            <state relative-caret-position="2737">
+              <caret line="161" column="13" selection-start-line="161" selection-start-column="13" selection-end-line="161" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,12 +130,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
               <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-              <folding />
+              <folding>
+                <marker date="1463015176730" expanded="true" signature="482:494" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,14 +156,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/ChunkLoader.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/MultiCubeChunkLoader.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/util/UUIDUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/database/MySqlDataProvider.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java" />
       </list>
     </option>
   </component>
@@ -344,6 +349,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="multicubechunkloader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Another-Better-Chunk-Loader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Another-Better-Chunk-Loader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multicubechunkloader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -830,7 +865,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463009303928</updated>
-      <workItem from="1463009305385" duration="5886000" />
+      <workItem from="1463009305385" duration="6168000" />
     </task>
     <task id="LOCAL-00001" summary="MultiCube Chunkloader V1.0 trial version">
       <created>1463011300479</created>
@@ -878,7 +913,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5886000" />
+    <option name="totallyTimeSpent" value="6168000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -892,7 +927,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980973" sideWeight="0.50416666" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980973" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32980973" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1008,9 +1043,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/MultiCubeChunkLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2057">
+          <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+          <folding>
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4778#4779#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <folding>
+            <marker date="1463015176730" expanded="true" signature="482:494" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/ChunkLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3607">
+        <state relative-caret-position="-3593">
           <caret line="39" column="108" selection-start-line="39" selection-start-column="106" selection-end-line="39" selection-end-column="108" />
           <folding />
         </state>
@@ -1024,42 +1080,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/MultiCubeChunkLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2057">
-          <caret line="160" column="5" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
+        <state relative-caret-position="-7735">
+          <caret line="112" column="29" selection-start-line="112" selection-start-column="29" selection-end-line="112" selection-end-column="29" />
           <folding>
-            <element signature="e#4700#4701#0" expanded="true" />
-            <element signature="e#4778#4779#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
+        <state relative-caret-position="2737">
+          <caret line="161" column="13" selection-start-line="161" selection-start-column="13" selection-end-line="161" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/multicubeuk/multicubechunkloader/commands/MultiCubeChunkLoaderAdminCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="485" column="46" selection-start-line="485" selection-start-column="46" selection-end-line="485" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
