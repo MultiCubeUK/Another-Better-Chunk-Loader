@@ -60,7 +60,7 @@ public class MySqlDataProvider extends DataProvider
                 config.getMySqlDatabase()
         );
 
-        plugin.getLogger().info("Connecting to dabase with following values:");
+        plugin.getLogger().info("Connecting to database with following values:");
         plugin.getLogger().info(cs);
 
         this.connection = DriverManager.getConnection(

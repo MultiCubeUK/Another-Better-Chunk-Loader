@@ -49,18 +49,24 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
         /**
          * ADD
          */
-        if (args[0].equalsIgnoreCase("add")) {
-            if (args.length < 4) {
+        if (args[0].equalsIgnoreCase("add"))
+        {
+            if (args.length < 4)
+            {
                 sender.sendMessage(String.format(commands.stream().filter(c -> c.command.equalsIgnoreCase("add")).findFirst().get().commandText, ChatColor.RED));
                 return false;
             }
 
-            try {
+            try
+            {
                 UUID player = null;
-                if (args[1].length() == 36) {
-                    try {
+                if (args[1].length() == 36)
+                {
+                    try
+                    {
                         player = UUID.fromString(args[1]);
-                    } catch (Exception ex) {
+                    } catch (Exception ex)
+                    {
                         // Not a uuid
                     }
                 }
@@ -80,7 +86,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
 
                 plugin.updatePlayerInfo(pi);
 
-                sender.sendMessage(ChatColor.GREEN + "Successfully adjusted player balance!");
+                sender.sendMessage(ChatColor.GREEN + "Successfully added " + chunks + " to " + pi.getName() + "'s balance!");
                 return true;
             } catch (Exception ex) {
                 sender.sendMessage(ChatColor.RED + "Error while adjusting balance! See console for more information.");
@@ -562,6 +568,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
 
             plugin.onDisable();
             plugin.onEnable();
+            return true;
         }
         return false;
     }

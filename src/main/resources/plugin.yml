@@ -14,7 +14,7 @@ commands:
    multicubechunkloaderadmin:
       aliases: [mcla]
       description: Administrative commands
-      usage: /<command> ?
+      usage: /<command> [?]
 permissions:
    multicubechunkloader.admin.delete:
       default: op
