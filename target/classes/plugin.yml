@@ -1,18 +1,18 @@
-name: AnotherChunkLoader
-main: net.anothereon.bukkit.anotherchunkloader.AnotherChunkLoader
-version: 1.2
-author: Christian Nordbakk
-website: http://www.anothereon.net
-description: Custom plugin for BCLForge by KaiNoMood
+name: MultiCubeChunkLoader
+main: io.github.multicubeuk.multicubechunkloaderer.MultiCubeChunkLoader
+version: 1.0
+author: Thomas Sweeck
+website: http://www.multicube.co
+description: Custom plugin for BCLForge by Sweeck
 # softdepend: [UUIDProvider]
 
 commands:
    anotherchunkloader:
-      aliases: [acl]
+      aliases: [mcl]
       description: Open GUI or list commands
       usage: /<command> [?]
    anotherchunkloaderadmin:
-      aliases: [acla]
+      aliases: [mcla]
       description: Administrative commands
       usage: /<command> ?
 permissions:

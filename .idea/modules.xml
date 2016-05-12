@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MulticubeChunkLoader.iml" filepath="$PROJECT_DIR$/MulticubeChunkLoader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/anotherchunkloader.iml" filepath="$PROJECT_DIR$/anotherchunkloader.iml" />
     </modules>
   </component>
 </project>
