@@ -87,7 +87,7 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("balance")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage("This command can only be used in game. Use /acla balance <player> from console.");
+                sender.sendMessage("This command can only be used in game. Use /mcla balance <player> from console.");
                 return true;
             }
 
@@ -117,7 +117,7 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         if (args[0].equalsIgnoreCase("list")) {
 
             if (!(sender instanceof Player)) {
-                sender.sendMessage(String.format("%sThis command can only be used in game. Use /acla list from console.", ChatColor.RED));
+                sender.sendMessage(String.format("%sThis command can only be used in game. Use /mcla list from console.", ChatColor.RED));
                 return true;
             }
 
@@ -157,7 +157,7 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
          */
         if (args[0].equalsIgnoreCase("delete")) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.RED + "This command can only be used in game. Use /acla delete from the console.");
+                sender.sendMessage(ChatColor.RED + "This command can only be used in game. Use /mcla delete from the console.");
                 return true;
             }
 

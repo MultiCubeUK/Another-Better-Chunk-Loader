@@ -80,13 +80,19 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
                 PlayerInfo pi = plugin.getPlayerInfo(player);
 
                 if (type == ChunkLoader.ChunkType.PERSONAL)
+                {
                     pi.addPersonalChunks(chunks);
+                    sender.sendMessage(ChatColor.GREEN + "Successfully added " + chunks + " personal chunkloaders to " + pi.getName() + "'s balance!");
+                }
                 else
+                {
                     pi.addWorldChunks(chunks);
+                    sender.sendMessage(ChatColor.GREEN + "Successfully added " + chunks + " world chunkloaders to " + pi.getName() + "'s balance!");
+                }
 
                 plugin.updatePlayerInfo(pi);
 
-                sender.sendMessage(ChatColor.GREEN + "Successfully added " + chunks + " to " + pi.getName() + "'s balance!");
+
                 return true;
             } catch (Exception ex) {
                 sender.sendMessage(ChatColor.RED + "Error while adjusting balance! See console for more information.");
@@ -100,7 +106,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor {
          */
         if (args[0].equalsIgnoreCase("balance")) {
             if (args.length != 2) {
-                sender.sendMessage(ChatColor.RED + "Invalid arguments to balance command. Format must be /acl balance <uuid|player name>");
+                sender.sendMessage(ChatColor.RED + "Invalid arguments to balance command. Format must be /mcl balance <uuid|player name>");
                 return true;
             }
 
