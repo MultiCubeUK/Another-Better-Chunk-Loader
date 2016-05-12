@@ -10,7 +10,26 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.7.9-R0.2" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: net.kaikk.mc:uuidprovider:2.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/UUIDProvider-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module-library">
       <library name="Maven: net.kaikk.mc.bcl.forge:BCLForge:1.1.1">
         <CLASSES>

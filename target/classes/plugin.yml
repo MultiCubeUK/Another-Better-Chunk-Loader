@@ -7,36 +7,36 @@ description: Custom plugin for BCLForge by Sweeck
 # softdepend: [UUIDProvider]
 
 commands:
-   anotherchunkloader:
+   multicubechunkloader:
       aliases: [mcl]
       description: Open GUI or list commands
       usage: /<command> [?]
-   anotherchunkloaderadmin:
+   multicubechunkloaderadmin:
       aliases: [mcla]
       description: Administrative commands
       usage: /<command> ?
 permissions:
-   anotherchunkloader.admin.delete:
+   multicubechunkloader.admin.delete:
       default: op
-   anotherchunkloader.admin.list:
+   multicubechunkloader.admin.list:
       default: op
-   anotherchunkloader.admin.add:
+   multicubechunkloader.admin.add:
       default: op
-   anotherchunkloader.admin.balance:
+   multicubechunkloader.admin.balance:
       default: op
-   anotherchunkloader.admin.*:
+   multicubechunkloader.admin.*:
       default: op
       children:
-         anotherchunkloader.admin.add: true
-         anotherchunkloader.admin.list: true
-         anotherchunkloader.admin.remove: true
-         anotherchunkloader.admin.balance: true
-   anotherchunkloader.place:
+         multicubechunkloader.admin.add: true
+         multicubechunkloader.admin.list: true
+         multicubechunkloader.admin.remove: true
+         multicubechunkloader.admin.balance: true
+   multicubechunkloader.place:
       default: true
-   anotherchunkloader.list:
+   multicubechunkloader.list:
       default: true
-   anotherchunkloader.delete:
+   multicubechunkloader.delete:
       default: true
-   anotherchunkloader.balance:
+   multicubechunkloader.balance:
       default: true
 
