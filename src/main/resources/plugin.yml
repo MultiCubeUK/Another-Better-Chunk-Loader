@@ -1,5 +1,5 @@
 name: MultiCubeChunkLoader
-main: io.github.multicubeuk.multicubechunkloaderer.MultiCubeChunkLoader
+main: io.github.multicubeuk.multicubechunkloader.MultiCubeChunkLoader
 version: 1.0
 author: Thomas Sweeck
 website: http://www.multicube.co
