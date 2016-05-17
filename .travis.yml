@@ -1,0 +1,11 @@
+language: java
+install: mvn install
+
+notifications:
+  slack: multicubeuk:MOyHRPSKBg5YpTJzkGbUFHOJ
+
+deploy:
+  provider: releases
+  api_key: "0f5ed906f3dd6ecb5e19"
+  file: "/target/*.jar"
+  skip_cleanup: true
