@@ -8,7 +8,7 @@
     <artifactId>multicubechunkloader</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
-    <name>MultiCubeChunkLoader</name>
+    <name>AnotherBetterChunkLoader</name>
     <url>http://maven.apache.org</url>
     
     <repositories>
