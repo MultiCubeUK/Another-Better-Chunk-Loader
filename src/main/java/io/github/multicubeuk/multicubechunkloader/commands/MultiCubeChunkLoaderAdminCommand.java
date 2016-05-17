@@ -31,8 +31,8 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
         commands = new ArrayList<>();
         commands.add(new Command("add", "/mcla add <owner> <personal|world> <# chunks> - Adds available chunks of the given type to players balance. This can be a negative number.", "multicubechunkloader.admin.add"));
         commands.add(new Command("balance", "/mcla balance <player> - Lists the balance of the specified player.", "multicubechunkloader.admin.balance"));
-        commands.add(new Command("list", "/mcla list [owner:<owner>] [world:<world>] [type:<personal|world|creative>] [page #] - Lists all chunk loaders.", "multicubechunkloader.admin.list"));
-        commands.add(new Command("delete", "/mcla delete <id:id|owner:owner|world:world|all> - Deletes specified or all chunk loaders", "multicubechunkloader.admin.delete"));
+        commands.add(new Command("list", "/mcla list <owner <owner>|world <world>|type <personal|world|creative>> [page #] - Lists all chunk loaders.", "multicubechunkloader.admin.list"));
+        commands.add(new Command("delete", "/mcla delete <id <id>|owner <owner>|world <world>|all> - Deletes specified or all chunk loaders", "multicubechunkloader.admin.delete"));
         commands.add(new Command("reload", "/mcla reload - Reloads the plugin, including configuration and loaded chunks", "multicubechunkloader.admin.reload"));
     }
 
@@ -180,13 +180,10 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
          */
         if (args[0].equalsIgnoreCase("list")) 
         {
-            Integer listType = 0;
-            boolean filterOwner = false;
-            //String owner = "";
-            boolean filterType = false;
-            ChunkLoader.ChunkType type = null;
-            boolean filterWorld = false;
-            // String world = "";
+            int listType = 0;
+            String owner = "";
+            ChunkLoader.ChunkType typeList = null;
+            String world = "";
             String error = "";
 
             int page = 0;
@@ -195,61 +192,79 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
             int totalPages = (int) Math.ceil(plugin.getChunkLoaders().size() / 10.0);
 
             sender.sendMessage(String.format("%sListing chunk loaders (page %s/%s)", ChatColor.YELLOW, page + 1, totalPages));
-            
+
             // this is me rewriting dun push this yet since it might be rubbish
             // @Sam can you check this part and see if you can find another way to incorporate a more accurate error throwing?
-            if (args.length == 2)
+            if (args.length == 4)
             {
                 for (ChunkLoader c : plugin.getChunkLoaders().stream().skip(page).limit(10).collect(Collectors.toList()))
                 {
                     //OwnerList
-                    try
+                    if (args[2].equalsIgnoreCase("owner"))
                     {
-                        Player listTarget = Bukkit.getPlayerExact(args[1]);
-                        if (listTarget != null)
+                        try
                         {
-                            listType = 1;
+                            owner = args[3];
+                            if (owner != null)
+                            {
+                                listType = 1;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            //not a valid player
+                            error = "The specified player does not exist please check your spelling!";
                         }
                     }
-                    catch (Exception ex) 
-                    {
-                        //not a valid player
-                        error += "The specified player does not exist please check your spelling!";
-                    }
-                    
+
                     //TypeList
-                    try 
+                    if (args[2].equalsIgnoreCase("type"))
                     {
-                        type = ChunkLoader.ChunkType.valueOf(args[1].toUpperCase());
-                        listType = 2;
-                    } 
-                    catch (Exception ex) 
-                    {
-                        // Not a valid type of chunkloader
-                        error += " The specified type of Chunkloader is invalid!";
+                        try
+                        {
+                            typeList = ChunkLoader.ChunkType.valueOf(args[3].toUpperCase());
+                            listType = 2;
+                        }
+                        catch (Exception ex)
+                        {
+                            // Not a valid type of chunkloader
+                            error = "The specified type of ChunkLoader is invalid!";
+                        }
                     }
-                    
+
                     //WorldList
-                    try
+                    if (args[2].equalsIgnoreCase("world"))
                     {
-                        World w = plugin.getServer().getWorld(args[1]);
-                        listType = 3;
+                        World w1 = plugin.getServer().getWorld(args[3]);
+
+                        if (w1 != null)
+                        {
+                            try
+                            {
+                                world = args[3];
+                                listType = 3;
+                            }
+                            catch (Exception ex)
+                            {
+                                //invalid world name
+                                error = "This world does not exist!";
+                            }
+                        }
+                        else
+                        {
+                            error = "The specified argument is not valid to go with world!";
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        //invalid world name
-                        error += " This world does not exist!";
-                    }
-                    
+
                     switch(listType)
                     {
                         case 1:
                             //OwnerList
-                            if (args[1].length() == 36)
+                            if (args[3].length() == 36)
                             {
                                 try
                                 {
-                                    if (!c.getOwner().equals(UUID.fromString(args[1])))
+                                    if (!c.getOwner().equals(UUID.fromString(owner)))
                                         continue;
                                 } 
                                 catch (Exception ex) 
@@ -259,25 +274,24 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             }
                             else 
                             {
-                                if (!c.getOwnerName().equalsIgnoreCase(args[1]))
+                                if (!c.getOwnerName().equalsIgnoreCase(owner))
                                     continue;
                             }
                             break;
                         case 2:
                             //TypeList
-                            if (type != null) 
+                            if (typeList != null)
                             {
-                                if (c.getChunkType() != type)
+                                if (c.getChunkType() != typeList)
                                     continue;
                             }
                             break;
                         case 3:
                             //WorldList
-                            if (!c.getWorld().equalsIgnoreCase(args[1]))
+                            if (!c.getWorld().equalsIgnoreCase(world))
                                 continue;
                             break;
                         default :
-                        //error | test message: "An invalid arguement has been given, please check if what you wrote is correct. If this is the case, either the specified world does not exist! Or the specified chunkloader type is invalid! Or the specified player does not exist!"
                         sender.sendMessage(ChatColor.RED + error);
                             return true;
                     }
@@ -299,139 +313,6 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                     return true;
                 }
             }
-            
-            
-            //original code
-            /*
-            if (args.length > 1) 
-            {
-                for (int i = 1; i < args.length; i++) 
-                {
-                    //if (args[i] = )
-                    if (args[i].startsWith("owner:")) 
-                    {
-                        String[] o = args[i].split(":");
-                        if (o.length != 2) 
-                        {
-                            sender.sendMessage(ChatColor.RED + "Invalid owner filter. Filter must have the form of \"owner:<uuid|name>\"");
-                            return true;
-                        }
-
-                        owner = o[1];
-                        filterOwner = true;
-                    } 
-                    else if (args[i].startsWith("type:")) 
-                    {
-                        String[] t = args[i].split(":");
-                        if (t.length != 2) 
-                        {
-                            sender.sendMessage(ChatColor.RED + "Invalid type filter. Filter must have the form of \"type:<personal|world|creative>\"");
-                            return true;
-                        }
-
-                        try 
-                        {
-                            type = ChunkLoader.ChunkType.valueOf(t[1].toUpperCase());
-                        } 
-                        catch (Exception ex) 
-                        {
-                            sender.sendMessage(ChatColor.RED + "Invalid type filter. Filter must have the form of \"type:<personal|world|creative>\"");
-                            return true;
-                        }
-
-                        filterType = true;
-                    } 
-                    else if (args[i].startsWith("world:")) 
-                    {
-                        String[] w = args[i].split(":");
-                        if (w.length != 2) 
-                        {
-                            sender.sendMessage(ChatColor.RED + "Invalid world filter. Filter must have the form of \"world:worldname\"");
-                            return true;
-                        }
-
-                        World w1 = plugin.getServer().getWorld(w[1]);
-
-                        if (w1 == null) 
-                        {
-                            sender.sendMessage(ChatColor.RED + "Invalid world filter. Specified world does not exist!");
-                            return true;
-                        }
-
-                        world = w[1];
-                        filterWorld = true;
-                    }
-                    else if (StringUtils.isInteger(args[i])) 
-                    {
-                        page = Integer.parseInt(args[i]);
-                    }
-                    else
-                    {
-                        sender.sendMessage(ChatColor.RED + "Invalid arguement (" + args[i] + ")");
-                        return false;
-                    }
-                }
-            }
-
-            for (ChunkLoader c : plugin.getChunkLoaders().stream().skip(page).limit(10).collect(Collectors.toList())) {
-
-                if (filterOwner) 
-                {
-                    if (owner.length() == 36) 
-                    {
-                        try 
-                        {
-                            if (!c.getOwner().equals(UUID.fromString(owner)))
-                                continue;
-                        } 
-                        catch (Exception ex) 
-                        {
-                            // Not a UUID
-                        }
-                    }
-                    else 
-                    {
-                        if (!c.getOwnerName().equalsIgnoreCase(owner))
-                            continue;
-                    }
-                }
-
-                if (filterType) 
-                {
-                    if (type != null) 
-                    {
-                        if (c.getChunkType() != type)
-                            continue;
-                    }
-                }
-
-                if (filterWorld) 
-                {
-                    if (!c.getWorld().equalsIgnoreCase(world))
-                        continue;
-                }
-
-                sender.sendMessage(
-                        String.format(
-                                "%s#%s, %s, %s(%s) %s(%s,%s,%s)",
-                                ChatColor.GREEN,
-                                c.getId(),
-                                c.getOwnerName(),
-                                c.getChunkType(),
-                                c.getSize(),
-                                c.getWorld(),
-                                c.getX(),
-                                c.getY(),
-                                c.getZ()
-                        )
-                );
-            }
-
-            return true;
-
-        }
-        */
-        
         
         /**
          * DELETE
@@ -444,311 +325,178 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                 sender.sendMessage(ChatColor.RED + "You do not have access to this command!");
             }
 
-            if (args.length < 2) 
+            if (args.length < 4 || args.length > 4)
             {
                 sender.sendMessage(ChatColor.RED + "Invalid arguments. At least one filter must be specified");
                 sender.sendMessage(ChatColor.YELLOW + commands.stream().filter(c -> c.command.equalsIgnoreCase("delete")).findFirst().orElse(null).commandText);
             }
 
-            boolean filterId = false;
-            boolean filterOwner = false;
-            boolean filterWorld = false;
-            boolean filterType = false;
-            boolean deleteAll = false;
+            int loadersAll = 0;
+            int chunksAll = 0;
 
             int id = -1;
             UUID owner = null;
             String world = null;
             ChunkLoader.ChunkType type = null;
 
-            for (int i = 1; i < args.length; i++) 
+            List<ChunkLoader> clsType = null;
+            List<ChunkLoader> clsOwner = null;
+            List<ChunkLoader> clsWorld = null;
+
+
+            if (args.length == 4)
             {
-                String arg = args[i];
-                if (arg.startsWith("id:"))
+                if (args[2].equalsIgnoreCase("owner"))
                 {
-                    String[] i2 = arg.split(":");
-
-                    if (i2.length != 2 || !StringUtils.isInteger(i2[1]))
+                    if (args[3].length() == 36)
                     {
-                        sender.sendMessage("Invalid ID argument for the delete command! Format must be \"id:<#>\"");
-                        return true;
-                    }
-
-                    id = Integer.parseInt(i2[1]);
-                    filterId = true;
-                }
-                else if (arg.startsWith("owner:"))
-                {
-                    String[] o = arg.split(":");
-
-                    if (o.length != 2) 
-                    {
-                        sender.sendMessage("Invalid owner argument for the delete command! Format must be \"owner:<UUID|Player name>\"");
-                        return true;
-                    }
-
-                    if (o[1].length() == 36) 
-                    {
-                        try 
+                        try
                         {
-                            owner = UUID.fromString(o[1]);
+                            clsOwner = new ArrayList<>();
+                            UUID uuid = UUID.fromString(args[3]);
+                            List<ChunkLoader> tOwner = new ArrayList<>();
+
+                            if (clsType != null)
+                            {
+                                clsType.stream()
+                                        .filter(c -> c.getOwner().equals(uuid))
+                                        .forEach(c -> tOwner.add(c));
+                                clsOwner.addAll(tOwner);
+                            }
+                            else
+                            {
+                                List<ChunkLoader> personal = plugin.getPersonalChunks(owner);
+
+                                for (ChunkLoader c : personal)
+                                {
+                                    ChunkLoader lpc = plugin.getChunkLoaders()
+                                            .stream()
+                                            .filter(cl -> cl.getId() == c.getId())
+                                            .findFirst().orElse(null);
+
+                                    clsOwner.add(lpc == null ? c : lpc);
+                                }
+
+                                plugin.getChunkLoaders()
+                                        .stream()
+                                        .filter(c -> c.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
+                                        .forEach(c -> tOwner.add(c));
+
+                                clsOwner.addAll(tOwner);
+                            }
                         }
-                        catch (Exception ex) 
+                        catch (Exception ex)
                         {
-                            sender.sendMessage("Invalid UUID argument for the delete command! Format must be \"owner:<UUID|Player name>\"");
+                            sender.sendMessage("Invalid UUID argument for the delete command! Format must be /mcla delete owner <UUID|Player>");
                             return true;
                         }
                     }
-                    else 
+                    else
                     {
-                        owner = UUIDUtils.getUUID(o[1]);
+                        clsOwner = new ArrayList<>();
+                        UUID uuid = UUIDUtils.getUUID(args[3]);
+                        List<ChunkLoader> tOwner = new ArrayList<>();
+
+                        if (clsType != null)
+                        {
+                            clsType.stream()
+                                    .filter(c -> c.getOwner().equals(uuid))
+                                    .forEach(c -> tOwner.add(c));
+                            clsOwner.addAll(tOwner);
+                        }
+                        else
+                        {
+                            List<ChunkLoader> personal = plugin.getPersonalChunks(owner);
+
+                            for (ChunkLoader c : personal)
+                            {
+                                ChunkLoader lpc = plugin.getChunkLoaders()
+                                        .stream()
+                                        .filter(cl -> cl.getId() == c.getId())
+                                        .findFirst().orElse(null);
+
+                                clsOwner.add(lpc == null ? c : lpc);
+                            }
+
+                            plugin.getChunkLoaders()
+                                    .stream()
+                                    .filter(c -> c.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
+                                    .forEach(c -> tOwner.add(c));
+
+                            clsOwner.addAll(tOwner);
+                        }
                     }
 
-                    if (owner == null) 
+                    if (owner == null)
                     {
-                        sender.sendMessage("Invalid Player Name argument for the delete command! Format must be \"owner:<UUID|Player name>\"");
+                        sender.sendMessage("Invalid Player Name argument for the delete command! Format must be /mcla delete owner <UUID|Player>");
                         return true;
                     }
-
-                    filterOwner = true;
-                } 
-                else if (arg.startsWith("type:")) 
-                {
-                    String[] t = arg.split(":");
-
-                    if (t.length != 2) 
-                    {
-                        sender.sendMessage("Invalid type argument for the delete command! Format must be \"type:<personal|world|creative>\"");
-                        return true;
-                    }
-
-                    try 
-                    {
-                        type = ChunkLoader.ChunkType.valueOf(t[1].toUpperCase());
-                    }
-                    catch (Exception ex) 
-                    {
-                        sender.sendMessage("Invalid type argument for the delete command! Format must be \"type:<personal|world|creative>\"");
-                        return true;
-                    }
-
-                    filterType = true;
-
                 }
-                else if (arg.startsWith("world:")) 
-                {
-                    String[] w = arg.split(":");
 
-                    if (w.length != 2) 
+                if (args[2].equalsIgnoreCase("type"))
+                {
+                    try
                     {
-                        sender.sendMessage("Invalid world argument for the delete command! Format must be \"world:<world name>\"");
+                        type = ChunkLoader.ChunkType.valueOf(args[3].toUpperCase());
+                        clsType = new ArrayList<>();
+                        if (type == ChunkLoader.ChunkType.PERSONAL)
+                        {
+                            List<ChunkLoader> personal = plugin.getPersonalChunks();
+
+                            for (ChunkLoader c : personal)
+                            {
+                                ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cl -> cl.getId() == c.getId()).findFirst().orElse(null);
+
+                                clsType.add(lpc == null ? c : lpc);
+                            }
+                        }
+                        else
+                        {
+                            List<ChunkLoader> tType = new ArrayList<>();
+                            plugin.getChunkLoaders()
+                                    .stream()
+                                    .filter(cl -> cl.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
+                                    .forEach(cl -> tType.add(cl));
+
+                            clsType.addAll(tType);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        sender.sendMessage("Invalid type argument for the delete command! Format must be /mcla delete type <personal|world|creative>");
                         return true;
                     }
+                }
 
-                    World w1 = plugin.getServer().getWorld(w[1]);
+                if (args[2].equalsIgnoreCase("world"))
+                {
+                    World w1 = plugin.getServer().getWorld(args[3]);
 
                     if (w1 == null)
                     {
-                        sender.sendMessage("Specified World Name does not exist! Format must be \"world:<world name>\"");
+                        sender.sendMessage("Specified World Name does not exist! Format must be /mcla delete world <world name>");
                         return true;
                     }
 
-                    filterWorld = true;
                     world = w1.getName();
 
-                } 
-                else if (arg.equalsIgnoreCase("all")) 
-                {
-                    deleteAll = true;
-                } 
-                else 
-                {
-                    sender.sendMessage(String.format("%sInvalid argument (%s) used with the delete command!", ChatColor.RED, arg));
-                    sender.sendMessage(ChatColor.YELLOW + commands.stream().filter(c -> c.command.equalsIgnoreCase("delete")).findFirst().orElse(null).commandText);
-                    return true;
-                }
-            }
-
-            if (deleteAll && (filterId || filterOwner || filterWorld)) 
-            {
-                sender.sendMessage(ChatColor.RED + "Delete ALL only works with TYPE as an optional extra argument. Command aborted!");
-                return true;
-            } 
-            else if (deleteAll) 
-            {
-                int loaders = 0;
-                int chunks = 0;
-                if (filterType) 
-                {
-                    if (type == ChunkLoader.ChunkType.PERSONAL) 
-                    {
-                        List<ChunkLoader> cl = plugin.getPersonalChunks();
-
-                        for (ChunkLoader c : cl) 
-                        {
-                            loaders++;
-                            chunks += c.getSize();
-                            ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cls -> cls.getId() == c.getId()).findFirst().orElse(null);
-                            if (lpc != null)
-                                lpc.delete();
-                            else
-                                c.delete();
-                        }
-                    }
-                    else
-                    {
-                        ChunkLoader.ChunkType ct = type;
-                        for (ChunkLoader c : plugin.getChunkLoaders()
-                                .stream()
-                                .filter(cl -> cl.getChunkType() == ct)
-                                .collect(Collectors.toList())) 
-                        {
-                            loaders++;
-                            chunks += c.getSize();
-                            c.delete();
-                        }
-                    }
-                }
-                else 
-                {
-                    List<ChunkLoader> pChunks = plugin.getPersonalChunks();
-
-                    for (ChunkLoader c : pChunks) 
-                    {
-                        loaders++;
-                        chunks += c.getSize();
-                        // Check if it is already loaded
-                        ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cl -> c.getId() == c.getId()).findFirst().orElse(null);
-                        if (lpc != null)
-                            lpc.delete();
-                        else
-                            c.delete();
-                    }
-
-                    for (ChunkLoader c : plugin.getChunkLoaders()
-                            .stream()
-                            .filter(cl -> cl.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
-                            .collect(Collectors.toList())) 
-                    {
-                        loaders++;
-                        chunks += c.getSize();
-                    }
-
-                }
-                sender.sendMessage(String.format("%sSuccessfully deleted %s chunk loaders, totalling %s chunks", ChatColor.GREEN, loaders, chunks));
-                return true;
-            } 
-            else if (filterId && (filterOwner || filterType || filterWorld)) 
-            {
-                sender.sendMessage(ChatColor.RED + "Delete ID does not work with any other filter arguments. Command aborted!");
-                return true;
-            }
-            else if (filterId) 
-            {
-                int cid = id;
-                ChunkLoader c = plugin.getChunkLoaders().stream().filter(cl -> cl.getId() == cid).findFirst().orElse(null);
-
-                if (c == null) 
-                {
-                    c = plugin.getChunkLoader(id);
-
-                    if (c == null) 
-                    {
-                        sender.sendMessage(ChatColor.RED + "The specified ID is invalid. Command aborted!");
-                        return true;
-                    }
-
-                    int chunks = c.getSize();
-                    c.delete();
-
-                    sender.sendMessage(String.format("%sSuccessfully deleted 1 chunk loader, totalling %s chunks", ChatColor.GREEN, chunks));
-                    return true;
-                }
-            } 
-            else if (filterOwner || filterType || filterWorld)
-            {
-                List<ChunkLoader> clsType = null;
-                List<ChunkLoader> clsOwner = null;
-                List<ChunkLoader> clsWorld = null;
-
-                if (filterType) 
-                {
-                    clsType = new ArrayList<>();
-                    if (type == ChunkLoader.ChunkType.PERSONAL) 
-                    {
-                        List<ChunkLoader> personal = plugin.getPersonalChunks();
-
-                        for (ChunkLoader c : personal)
-                        {
-                            ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cl -> cl.getId() == c.getId()).findFirst().orElse(null);
-
-                            clsType.add(lpc == null ? c : lpc);
-                        }
-                    }
-                    else
-                    {
-                        List<ChunkLoader> tType = new ArrayList<>();
-                        plugin.getChunkLoaders()
-                                .stream()
-                                .filter(cl -> cl.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
-                                .forEach(cl -> tType.add(cl));
-
-                        clsType.addAll(tType);
-                    }
-                }
-                if (filterOwner) 
-                {
-                    clsOwner = new ArrayList<>();
-                    UUID uuid = owner;
-                    List<ChunkLoader> tOwner = new ArrayList<>();
-
-                    if (clsType != null) 
-                    {
-                        clsType.stream()
-                                .filter(c -> c.getOwner().equals(uuid))
-                                .forEach(c -> tOwner.add(c));
-                        clsOwner.addAll(tOwner);
-                    } 
-                    else 
-                    {
-                        List<ChunkLoader> personal = plugin.getPersonalChunks(owner);
-
-                        for (ChunkLoader c : personal) 
-                        {
-                            ChunkLoader lpc = plugin.getChunkLoaders()
-                                    .stream()
-                                    .filter(cl -> cl.getId() == c.getId())
-                                    .findFirst().orElse(null);
-
-                            clsOwner.add(lpc == null ? c : lpc);
-                        }
-
-                        plugin.getChunkLoaders()
-                                .stream()
-                                .filter(c -> c.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
-                                .forEach(c -> tOwner.add(c));
-
-                        clsOwner.addAll(tOwner);
-                    }
-                }
-                if (filterWorld) 
-                {
                     clsWorld = new ArrayList<>();
                     String world2 = world;
                     List<ChunkLoader> tworld = new ArrayList<>();
 
-                    if (clsOwner != null) 
+                    if (clsOwner != null)
                     {
                         clsOwner.stream()
                                 .filter(c -> c.getWorld().equalsIgnoreCase(world2))
                                 .forEach(c -> tworld.add(c));
                         clsWorld.addAll(tworld);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         List<ChunkLoader> personal = plugin.getPersonalChunks();
 
-                        for (ChunkLoader c : personal) 
+                        for (ChunkLoader c : personal)
                         {
                             if (!c.getWorld().equalsIgnoreCase(world2))
                                 continue;
@@ -774,7 +522,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                 int loaders = 0;
                 int chunks = 0;
 
-                for (ChunkLoader c : deleteList) 
+                for (ChunkLoader c : deleteList)
                 {
                     loaders++;
                     chunks += c.getSize();
@@ -784,12 +532,106 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
 
                 sender.sendMessage(String.format("%sSuccessfully deleted %s chunk loaders, totalling %s chunks", ChatColor.GREEN, loaders, chunks));
                 return true;
+
+                if (args[2].equalsIgnoreCase("id"))
+                {
+                    if (StringUtils.isInteger(args[3]))
+                    {
+                        int cid = id;
+                        ChunkLoader c = plugin.getChunkLoaders().stream().filter(cl -> cl.getId() == cid).findFirst().orElse(null);
+
+                        if (c == null)
+                        {
+                            c = plugin.getChunkLoader(id);
+
+                            if (c == null)
+                            {
+                                sender.sendMessage(ChatColor.RED + "The specified ID is invalid. Command aborted, please try again!");
+                                return true;
+                            }
+
+                            int chunks = c.getSize();
+                            c.delete();
+
+                            sender.sendMessage(String.format("%sSuccessfully deleted 1 chunk loader with id: %s, totalling %s chunks", ChatColor.GREEN, cid, chunks));
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        sender.sendMessage("Invalid ID argument for the delete command! Format must be /mcla delete id <#>!");
+                        return true;
+                    }
+                }
+
+                if (args[2].equalsIgnoreCase("all"))
+                {
+                    if (type == ChunkLoader.ChunkType.PERSONAL)
+                    {
+                        List<ChunkLoader> cl = plugin.getPersonalChunks();
+
+                        for (ChunkLoader c : cl)
+                        {
+                            loadersAll++;
+                            chunksAll += c.getSize();
+                            ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cls -> cls.getId() == c.getId()).findFirst().orElse(null);
+                            if (lpc != null)
+                                lpc.delete();
+                            else
+                                c.delete();
+                        }
+                    }
+                    else
+                    {
+                        ChunkLoader.ChunkType ct = type;
+                        for (ChunkLoader c : plugin.getChunkLoaders()
+                                .stream()
+                                .filter(cl -> cl.getChunkType() == ct)
+                                .collect(Collectors.toList()))
+                        {
+                            loadersAll++;
+                            chunksAll += c.getSize();
+                            c.delete();
+                        }
+                    }
+                }
+                else
+                {
+                    List<ChunkLoader> pChunks = plugin.getPersonalChunks();
+
+                    for (ChunkLoader c : pChunks)
+                    {
+                        loadersAll++;
+                        chunksAll += c.getSize();
+                        // Check if it is already loaded
+                        ChunkLoader lpc = plugin.getChunkLoaders().stream().filter(cl -> c.getId() == c.getId()).findFirst().orElse(null);
+                        if (lpc != null)
+                            lpc.delete();
+                        else
+                            c.delete();
+                    }
+
+                    for (ChunkLoader c : plugin.getChunkLoaders()
+                            .stream()
+                            .filter(cl -> cl.getChunkType() != ChunkLoader.ChunkType.PERSONAL)
+                            .collect(Collectors.toList()))
+                    {
+                        loadersAll++;
+                        chunksAll += c.getSize();
+                    }
+
+                }
+                sender.sendMessage(String.format("%sSuccessfully deleted %s chunk loaders, totalling %s chunks", ChatColor.GREEN, loadersAll, chunksAll));
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(String.format("%sInvalid argument (%s) used with the delete command!", ChatColor.RED, args));
+                sender.sendMessage(ChatColor.YELLOW + commands.stream().filter(c -> c.command.equalsIgnoreCase("delete")).findFirst().orElse(null).commandText);
+                return true;
             }
 
-        }
-
-
-        /**
+            /**
          * RELOAD
          */
         if (args[0].equalsIgnoreCase("reload")) 
