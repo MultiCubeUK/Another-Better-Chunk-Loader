@@ -5,10 +5,12 @@ import io.github.multicubeuk.multicubechunkloader.MultiCubeChunkLoader;
 import io.github.multicubeuk.multicubechunkloader.PlayerInfo;
 import io.github.multicubeuk.multicubechunkloader.util.StringUtils;
 import io.github.multicubeuk.multicubechunkloader.util.UUIDUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,7 +206,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                     try
                     {
                         Player listTarget = Bukkit.getPlayerExact(args[1]);
-                        if (!listTarget != null)
+                        if (listTarget != null)
                         {
                             listType = 1;
                         }
@@ -243,11 +245,11 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                     {
                         case 1:
                             //OwnerList
-                            if (owner.length() == 36)
+                            if (args[1].length() == 36)
                             {
                                 try
                                 {
-                                    if (!c.getOwner().equals(UUID.fromString(owner)))
+                                    if (!c.getOwner().equals(UUID.fromString(args[1])))
                                         continue;
                                 } 
                                 catch (Exception ex) 
@@ -257,7 +259,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             }
                             else 
                             {
-                                if (!c.getOwnerName().equalsIgnoreCase(owner))
+                                if (!c.getOwnerName().equalsIgnoreCase(args[1]))
                                     continue;
                             }
                             break;
@@ -271,7 +273,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             break;
                         case 3:
                             //WorldList
-                            if (!c.getWorld().equalsIgnoreCase(w))
+                            if (!c.getWorld().equalsIgnoreCase(args[1]))
                                 continue;
                             break;
                         default :
