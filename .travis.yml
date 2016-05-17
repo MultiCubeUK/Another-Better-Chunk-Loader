@@ -12,5 +12,3 @@ deploy:
   api_key: "5b3d8cc335bb90f382a0bd689f0e7f8edd9106d4"
   file: "./target/*.jar"
   skip_cleanup: true
-  on:
-    tags: true
