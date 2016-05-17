@@ -178,16 +178,129 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
          */
         if (args[0].equalsIgnoreCase("list")) 
         {
-
+            Integer listType = 0;
             boolean filterOwner = false;
-            String owner = "";
+            //String owner = "";
             boolean filterType = false;
             ChunkLoader.ChunkType type = null;
             boolean filterWorld = false;
-            String world = "";
+            // String world = "";
+            String error = "";
 
             int page = 0;
+            
+            page = page < 0 ? 0 : page * 10;
+            int totalPages = (int) Math.ceil(plugin.getChunkLoaders().size() / 10.0);
 
+            sender.sendMessage(String.format("%sListing chunk loaders (page %s/%s)", ChatColor.YELLOW, page + 1, totalPages));
+            
+            // this is me rewriting dun push this yet since it might be rubbish
+            // @Sam can you check this part and see if you can find another way to incorporate a more accurate error throwing?
+            if (args.length == 2)
+            {
+                for (ChunkLoader c : plugin.getChunkLoaders().stream().skip(page).limit(10).collect(Collectors.toList()))
+                {
+                    //OwnerList
+                    try
+                    {
+                        Player listTarget = Bukkit.getPlayerExact(args[1]);
+                        if (!listTarget != null)
+                        {
+                            listType = 1;
+                        }
+                    }
+                    catch (Exception ex) 
+                    {
+                        //not a valid player
+                        error += "The specified player does not exist please check your spelling!";
+                    }
+                    
+                    //TypeList
+                    try 
+                    {
+                        type = ChunkLoader.ChunkType.valueOf(args[1].toUpperCase());
+                        listType = 2;
+                    } 
+                    catch (Exception ex) 
+                    {
+                        // Not a valid type of chunkloader
+                        error += " The specified type of Chunkloader is invalid!";
+                    }
+                    
+                    //WorldList
+                    try
+                    {
+                        World w = plugin.getServer().getWorld(args[1]);
+                        listType = 3;
+                    }
+                    catch (Exception ex)
+                    {
+                        //invalid world name
+                        error += " This world does not exist!";
+                    }
+                    
+                    switch(listType)
+                    {
+                        case 1:
+                            //OwnerList
+                            if (owner.length() == 36)
+                            {
+                                try
+                                {
+                                    if (!c.getOwner().equals(UUID.fromString(owner)))
+                                        continue;
+                                } 
+                                catch (Exception ex) 
+                                {
+                                    // Not a UUID
+                                }
+                            }
+                            else 
+                            {
+                                if (!c.getOwnerName().equalsIgnoreCase(owner))
+                                    continue;
+                            }
+                            break;
+                        case 2:
+                            //TypeList
+                            if (type != null) 
+                            {
+                                if (c.getChunkType() != type)
+                                    continue;
+                            }
+                            break;
+                        case 3:
+                            //WorldList
+                            if (!c.getWorld().equalsIgnoreCase(w))
+                                continue;
+                            break;
+                        default :
+                        //error | test message: "An invalid arguement has been given, please check if what you wrote is correct. If this is the case, either the specified world does not exist! Or the specified chunkloader type is invalid! Or the specified player does not exist!"
+                        sender.sendMessage(ChatColor.RED + error);
+                            return true;
+                    }
+                    
+                    sender.sendMessage(
+                        String.format(
+                                "%s#%s, %s, %s(%s) %s(%s,%s,%s)",
+                                ChatColor.GREEN,
+                                c.getId(),
+                                c.getOwnerName(),
+                                c.getChunkType(),
+                                c.getSize(),
+                                c.getWorld(),
+                                c.getX(),
+                                c.getY(),
+                                c.getZ()
+                        )
+                    );
+                    return true;
+                }
+            }
+            
+            
+            //original code
+            /*
             if (args.length > 1) 
             {
                 for (int i = 1; i < args.length; i++) 
@@ -258,11 +371,6 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                 }
             }
 
-            page = page < 0 ? 0 : page * 10;
-            int totalPages = (int) Math.ceil(plugin.getChunkLoaders().size() / 10.0);
-
-            sender.sendMessage(String.format("%sListing chunk loaders (page %s/%s)", ChatColor.YELLOW, page + 1, totalPages));
-
             for (ChunkLoader c : plugin.getChunkLoaders().stream().skip(page).limit(10).collect(Collectors.toList())) {
 
                 if (filterOwner) 
@@ -320,7 +428,9 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
             return true;
 
         }
-
+        */
+        
+        
         /**
          * DELETE
          */
