@@ -3,12 +3,3 @@ install: mvn install
 
 notifications:
   slack: multicubeuk:MOyHRPSKBg5YpTJzkGbUFHOJ
-
-jdk:
-  - oraclejdk8
-  
-deploy:
-  provider: releases
-  api_key: "bf95e0d141386c96566fef6f459cf4d800f3278f"
-  file: "./target/*.jar"
-  skip_cleanup: true
