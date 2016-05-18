@@ -27,10 +27,10 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
         this.plugin = plugin;
 
         commands = new ArrayList<>();
-        commands.add(new Command("add", "/mcla add <owner> <personal|world> <# chunks> - Adds available chunks of the given type to players balance. This can be a negative number.", "multicubechunkloader.admin.add"));
+        commands.add(new Command("add", "/mcla add <player> <personal/world> <# chunks> - Adds available chunks of the given type to players balance. This can be a negative number.", "multicubechunkloader.admin.add"));
         commands.add(new Command("balance", "/mcla balance <player> - Lists the balance of the specified player.", "multicubechunkloader.admin.balance"));
-        commands.add(new Command("list", "/mcla list [owner:<owner>] [world:<world>] [type:<personal|world|creative>] [page #] - Lists all chunk loaders.", "multicubechunkloader.admin.list"));
-        commands.add(new Command("delete", "/mcla delete <id:id|owner:owner|world:world|all> - Deletes specified or all chunk loaders", "multicubechunkloader.admin.delete"));
+        commands.add(new Command("list", "/mcla list [player:<player>] [world:<world>] [type:<personal/world/creative>] [page #] - Lists all chunk loaders.", "multicubechunkloader.admin.list"));
+        commands.add(new Command("delete", "/mcla delete [id:<id>] [player:<player>] [world:<world>] [all] - Deletes specified or all chunk loaders", "multicubechunkloader.admin.delete"));
         commands.add(new Command("reload", "/mcla reload - Reloads the plugin, including configuration and loaded chunks", "multicubechunkloader.admin.reload"));
     }
 
