@@ -16,13 +16,13 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor 
+public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
 {
     private MultiCubeChunkLoader plugin;
     private List<Command> commands;
 
 
-    public MultiCubeChunkLoaderAdminCommand(MultiCubeChunkLoader plugin) 
+    public MultiCubeChunkLoaderAdminCommand(MultiCubeChunkLoader plugin)
     {
         this.plugin = plugin;
 
