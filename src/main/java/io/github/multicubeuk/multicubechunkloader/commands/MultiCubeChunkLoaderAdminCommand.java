@@ -181,9 +181,9 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
         if (args[0].equalsIgnoreCase("list")) 
         {
             int listType = 0;
-            String owner = "";
+            String ownerList = "";
             ChunkLoader.ChunkType typeList = null;
-            String world = "";
+            String worldList = "";
             String error = "";
 
             int page = 0;
@@ -204,8 +204,8 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                     {
                         try
                         {
-                            owner = args[3];
-                            if (owner != null)
+                            ownerList = args[3];
+                            if (ownerList != null)
                             {
                                 listType = 1;
                             }
@@ -241,7 +241,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                         {
                             try
                             {
-                                world = args[3];
+                                worldList = args[3];
                                 listType = 3;
                             }
                             catch (Exception ex)
@@ -264,7 +264,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             {
                                 try
                                 {
-                                    if (!c.getOwner().equals(UUID.fromString(owner)))
+                                    if (!c.getOwner().equals(UUID.fromString(ownerList)))
                                         continue;
                                 } 
                                 catch (Exception ex) 
@@ -274,7 +274,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             }
                             else 
                             {
-                                if (!c.getOwnerName().equalsIgnoreCase(owner))
+                                if (!c.getOwnerName().equalsIgnoreCase(ownerList))
                                     continue;
                             }
                             break;
@@ -288,7 +288,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             break;
                         case 3:
                             //WorldList
-                            if (!c.getWorld().equalsIgnoreCase(world))
+                            if (!c.getWorld().equalsIgnoreCase(worldList))
                                 continue;
                             break;
                         default :
@@ -335,9 +335,9 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
             int chunksAll = 0;
 
             int id = -1;
-            UUID owner = null;
-            String world = null;
-            ChunkLoader.ChunkType type = null;
+            UUID ownerDelete = null;
+            String worldDelete = null;
+            ChunkLoader.ChunkType typeDelete = null;
 
             List<ChunkLoader> clsType = null;
             List<ChunkLoader> clsOwner = null;
@@ -365,7 +365,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                             }
                             else
                             {
-                                List<ChunkLoader> personal = plugin.getPersonalChunks(owner);
+                                List<ChunkLoader> personal = plugin.getPersonalChunks(ownerDelete);
 
                                 for (ChunkLoader c : personal)
                                 {
@@ -406,7 +406,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                         }
                         else
                         {
-                            List<ChunkLoader> personal = plugin.getPersonalChunks(owner);
+                            List<ChunkLoader> personal = plugin.getPersonalChunks(ownerDelete);
 
                             for (ChunkLoader c : personal)
                             {
@@ -427,7 +427,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                         }
                     }
 
-                    if (owner == null)
+                    if (ownerDelete == null)
                     {
                         sender.sendMessage("Invalid Player Name argument for the delete command! Format must be /mcla delete owner <UUID|Player>");
                         return true;
@@ -438,9 +438,9 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                 {
                     try
                     {
-                        type = ChunkLoader.ChunkType.valueOf(args[3].toUpperCase());
+                        typeDelete = ChunkLoader.ChunkType.valueOf(args[3].toUpperCase());
                         clsType = new ArrayList<>();
-                        if (type == ChunkLoader.ChunkType.PERSONAL)
+                        if (typeDelete == ChunkLoader.ChunkType.PERSONAL)
                         {
                             List<ChunkLoader> personal = plugin.getPersonalChunks();
 
@@ -479,10 +479,10 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                         return true;
                     }
 
-                    world = w1.getName();
+                    worldDelete = w1.getName();
 
                     clsWorld = new ArrayList<>();
-                    String world2 = world;
+                    String world2 = worldDelete;
                     List<ChunkLoader> tworld = new ArrayList<>();
 
                     if (clsOwner != null)
@@ -566,7 +566,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
 
                 if (args[2].equalsIgnoreCase("all"))
                 {
-                    if (type == ChunkLoader.ChunkType.PERSONAL)
+                    if (typeDelete == ChunkLoader.ChunkType.PERSONAL)
                     {
                         List<ChunkLoader> cl = plugin.getPersonalChunks();
 
@@ -583,7 +583,7 @@ public class MultiCubeChunkLoaderAdminCommand implements CommandExecutor
                     }
                     else
                     {
-                        ChunkLoader.ChunkType ct = type;
+                        ChunkLoader.ChunkType ct = typeDelete;
                         for (ChunkLoader c : plugin.getChunkLoaders()
                                 .stream()
                                 .filter(cl -> cl.getChunkType() == ct)
