@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MultiCubeChunkLoaderCommand implements CommandExecutor {
+public class MultiCubeChunkLoaderCommand implements CommandExecutor
+{
     private MultiCubeChunkLoader plugin;
     private List<Command> commands;
 
-    public MultiCubeChunkLoaderCommand(MultiCubeChunkLoader plugin) {
+    public MultiCubeChunkLoaderCommand(MultiCubeChunkLoader plugin)
+    {
         this.plugin = plugin;
 
         commands = new ArrayList<>();
@@ -34,13 +36,16 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args)
+    {
 
         /**
          * GIVE ACTIVATOR
          */
-        if (args.length == 0) {
-            if (sender instanceof Player) {
+        if (args.length == 0)
+        {
+            if (sender instanceof Player)
+            {
                 Player player = (Player) sender;
 
                 ItemStack item = new ItemStack(plugin.getConfiguration().getChunkloaderActivator(), 1);
@@ -52,7 +57,8 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
                 im.setLore(lore);
 
 
-                if (plugin.getConfiguration().getChunkloaderActivatorEnchant() != null) {
+                if (plugin.getConfiguration().getChunkloaderActivatorEnchant() != null)
+                {
                     im.addEnchant(plugin.getConfiguration().getChunkloaderActivatorEnchant(), 1, true);
                 }
 
@@ -60,7 +66,9 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
 
                 player.getInventory().addItem(item);
 
-            } else {
+            }
+            else
+            {
                 sender.sendMessage("You must be in game to use the GUI!");
                 commands
                         .stream()
@@ -74,7 +82,8 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         /**
          * HELP
          */
-        if (args[0].equalsIgnoreCase("?")) {
+        if (args[0].equalsIgnoreCase("?"))
+        {
             commands
                     .stream()
                     .filter(c -> sender.hasPermission(c.permissions) || sender.isOp())
@@ -85,8 +94,10 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
          * BALANCE
          */
 
-        if (args[0].equalsIgnoreCase("balance")) {
-            if (!(sender instanceof Player)) {
+        if (args[0].equalsIgnoreCase("balance"))
+        {
+            if (!(sender instanceof Player))
+            {
                 sender.sendMessage("This command can only be used in game. Use /mcla balance <player> from console.");
                 return true;
             }
@@ -114,9 +125,11 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         /**
          * LIST
          */
-        if (args[0].equalsIgnoreCase("list")) {
+        if (args[0].equalsIgnoreCase("list"))
+        {
 
-            if (!(sender instanceof Player)) {
+            if (!(sender instanceof Player))
+            {
                 sender.sendMessage(String.format("%sThis command can only be used in game. Use /mcla list from console.", ChatColor.RED));
                 return true;
             }
@@ -155,13 +168,16 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         /**
          * DELETE
          */
-        if (args[0].equalsIgnoreCase("delete")) {
-            if (!(sender instanceof Player)) {
+        if (args[0].equalsIgnoreCase("delete"))
+        {
+            if (!(sender instanceof Player))
+            {
                 sender.sendMessage(ChatColor.RED + "This command can only be used in game. Use /mcla delete from the console.");
                 return true;
             }
 
-            if (!sender.hasPermission("multicubechunkloader.delete") || !sender.isOp()) {
+            if (!sender.hasPermission("multicubechunkloader.delete") || !sender.isOp())
+            {
                 sender.sendMessage(ChatColor.RED + "You do not have access to this command!");
                 return true;
             }
@@ -174,11 +190,13 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
             int loaders = 0;
             int chunks = 0;
 
-            if (args[1].equalsIgnoreCase("all")) {
+            if (args[1].equalsIgnoreCase("all"))
+            {
                 for (ChunkLoader c : plugin.getChunkLoaders()
                         .stream()
                         .filter(cl -> cl.getOwner().equals(((Player) sender).getUniqueId()))
-                        .collect(Collectors.toList())) {
+                        .collect(Collectors.toList()))
+                {
                     loaders++;
                     chunks += c.getSize();
                     c.delete();
@@ -186,8 +204,11 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
 
                 sender.sendMessage(String.format("%sSuccessfully deleted %s chunk loaders, totalling %s chunks!", ChatColor.GREEN, loaders, chunks));
                 return true;
-            } else {
-                if (!StringUtils.isInteger(args[1])) {
+            }
+            else
+            {
+                if (!StringUtils.isInteger(args[1]))
+                {
                     sender.sendMessage(ChatColor.RED + "Invalid ID passed to the delete command!");
                     return true;
                 }
@@ -200,7 +221,8 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
                         .filter(c -> c.getId() == id)
                         .findFirst().orElse(null);
 
-                if (lpc == null) {
+                if (lpc == null)
+                {
                     sender.sendMessage(ChatColor.RED + "Invalid ID passed to the delete command");
                     return true;
                 }
@@ -215,8 +237,10 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         /**
          * PLACE
          */
-        if (args[0].equalsIgnoreCase("place")) {
-            if (!(sender instanceof Player)) {
+        if (args[0].equalsIgnoreCase("place"))
+        {
+            if (!(sender instanceof Player))
+            {
                 sender.sendMessage("This command can only by used in game!");
                 return true;
             }
@@ -235,15 +259,19 @@ public class MultiCubeChunkLoaderCommand implements CommandExecutor {
         return false;
     }
 
-    private class Command {
+    private class Command
+    {
         public String command;
         public String commandText;
         public String permissions;
 
-        public Command() {
+        public Command()
+        {
+
         }
 
-        public Command(String command, String commandText, String permissions) {
+        public Command(String command, String commandText, String permissions)
+        {
             this.command = command;
             this.commandText = commandText;
             this.permissions = permissions;
